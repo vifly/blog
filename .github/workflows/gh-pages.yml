@@ -25,5 +25,7 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public 
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: vifly/vifly.github.io
+          publish_branch: main
+          publish_dir: ./public
