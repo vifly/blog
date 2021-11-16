@@ -27,5 +27,5 @@ jobs:
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           external_repository: vifly/vifly.github.io
-          publish_branch: main
+          publish_branch: master
           publish_dir: ./public
