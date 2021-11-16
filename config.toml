@@ -1,0 +1,166 @@
+baseURL = 'https://vifly.github.io/'
+languageCode = 'zh-cn'
+title = 'Vifly 的博客'
+theme = "hugo-theme-stack"
+summaryLength = 20
+paginate = 6
+disqusShortname = ''
+# Set hasCJKLanguage to true if DefaultContentLanguage is in [zh-cn ja ko]
+# This will make .Summary and .WordCount behave correctly for CJK languages.
+hasCJKLanguage = true
+enableEmoji = true
+disablePathToLower = true
+
+# Set RSS path to viflythink.com/atom.xml
+[outputFormats.RSS]
+mediatype = "application/rss"
+baseName = "atom"
+
+[permalinks]
+post = "/:filename/"
+page = "/:slug/"
+
+[params]
+mainSections = 'post'
+featuredImageField = "image"
+rssFullContent = true
+favicon = "images/favicon.png"
+
+  [params.footer]
+  since = 2019
+  customText = ""
+  
+  [params.dateFormat]
+  published = "2006 年 01 月 02 日"
+  lastUpdated = "2006 年 01 月 02 日"
+  
+  [params.sidebar]
+  emoji = ""
+  subtitle = "千里之行，始于足下"
+
+    [params.sidebar.avatar]
+    enabled = true
+    local = true
+    src = "img/avatar.png"
+    
+  [params.article]
+  math = false
+  toc = true
+  readingTime = true
+
+    [params.article.license]
+    enabled = true
+    default = "Licensed under CC BY-NC-SA 4.0"
+
+  [params.comments]
+  enabled = true
+  provider = "disqus"
+  
+    [params.comments.disqusjs]
+    shortname = ""
+    apiUrl = ""
+    apiKey = ""
+    admin = ""
+    adminLabel = ""
+  
+  [params.widgets]
+  enabled = [ "search", "archives", "tag-cloud" ]
+  
+    [params.widgets.archives]
+    limit = 5
+
+    [params.widgets.tagCloud]
+    limit = 12
+
+  [params.opengraph.twitter]
+  site = ""
+  card = "summary_large_image"
+  
+  [params.defaultImage.opengraph]
+  enabled = false
+  local = false
+  src = ""
+  
+  [params.colorScheme]
+  toggle = true
+  default = "auto"
+
+  [params.imageProcessing.cover]
+  enabled = true
+
+  [params.imageProcessing.content]
+  enabled = false
+  
+[[menu.main]]
+identifier = "home"
+name = "Home"
+url = "/"
+weight = -100
+
+  [menu.main.params]
+  newTab = true
+  icon = "home"
+
+[[menu.social]]
+identifier = "github"
+name = "GitHub"
+url = "https://github.com/vifly"
+
+  [menu.social.params]
+  icon = "brand-github"
+
+[[menu.social]]
+identifier = "twitter"
+name = "Twitter"
+url = "https://twitter.com/viflythink"
+
+  [menu.social.params]
+  icon = "brand-twitter"
+
+[[menu.social]]
+identifier = "telegram"
+name = "Telegram"
+url = "https://t.me/viflythink"
+
+  [menu.social.params]
+  icon = "brand-telegram"
+
+[[menu.social]]
+identifier = "email"
+name = "Email"
+url = "mailto:viflythink@gmail.com"
+
+  [menu.social.params]
+  icon = "mail"
+
+[[menu.social]]
+identifier = "rss"
+name = "RSS"
+url = "https://viflythink.com/atom.xml"
+
+  [menu.social.params]
+  icon = "rss"
+
+[related]
+includeNewer = true
+threshold = 90
+toLower = false
+
+  [[related.indices]]
+  name = "tags"
+  weight = 2
+  
+  [[related.indices]]
+  name = "date"
+  weight = 1
+
+[markup.goldmark.renderer]
+unsafe = false
+
+[markup.tableOfContents]
+endLevel = 4
+ordered = true
+startLevel = 1
+
+[markup.highlight]
+noClasses = false
