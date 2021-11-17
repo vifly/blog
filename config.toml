@@ -38,6 +38,7 @@ favicon = "images/favicon.png"
   emoji = ""
   subtitle = "千里之行，始于足下"
   randomSlogan = true
+  sloganURL = "https://api.github.com/gists/7a04e2188185ddb19cbd19d8217b9400"
 
     [params.sidebar.avatar]
     enabled = true

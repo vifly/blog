@@ -34,7 +34,7 @@
         
         {{ if .Site.Params.sidebar.randomSlogan }}
         <script>
-            fetch('https://api.github.com/gists/7a04e2188185ddb19cbd19d8217b9400')
+            fetch('{{ .Site.Params.sidebar.sloganURL }}')
                 .then(response => {
                     if (response.ok) {
                         return response.json();
