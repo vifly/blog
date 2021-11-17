@@ -37,6 +37,7 @@ favicon = "images/favicon.png"
   [params.sidebar]
   emoji = ""
   subtitle = "千里之行，始于足下"
+  randomSlogan = true
 
     [params.sidebar.avatar]
     enabled = true
