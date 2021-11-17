@@ -1,0 +1,14 @@
+{{- with .Site.Params.comments.isso -}}
+<div id="isso-comment">
+    <script data-isso="{{ .url }}/" data-isso-css="true" data-isso-lang="zh_CN" data-isso-reply-to-self="{{ .replyToSelf }}" data-isso-require-author="{{ .requireAuthor }}" data-isso-require-email="{{ .requireEmail }}" data-isso-max-comments-top="{{ .maxCommentsTop }}" data-isso-max-comments-nested="{{ .maxCommentsNested }}" data-isso-reveal-on-click="{{ .revealOnClick }}" data-isso-avatar="{{ .avatar }}" data-isso-vote="{{ .vote }}" data-isso-vote-levels="{{ .voteLevels }}" data-isso-feed="{{ .feed }}" src="{{ .url }}/js/embed.min.js"></script>
+        
+    <section id="isso-thread"></section>
+</div>
+
+<style>
+    #isso-comment {
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+{{- end -}}

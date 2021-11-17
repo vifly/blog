@@ -54,14 +54,21 @@ favicon = "images/favicon.png"
 
   [params.comments]
   enabled = true
-  provider = "disqus"
+  provider = "isso"
   
-    [params.comments.disqusjs]
-    shortname = ""
-    apiUrl = ""
-    apiKey = ""
-    admin = ""
-    adminLabel = ""
+    [params.comments.isso]
+    url = "https://comments.viflythink.com/isso"
+    lang = "zh_CN"
+    replyToSelf = true
+    requireAuthor = true
+    requireEmail = false
+    maxCommentsTop = 10
+    maxCommentsNested = 5
+    revealOnClick = 5
+    avatar = true
+    vote = true
+    voteLevels = ""
+    feed = false
   
   [params.widgets]
   enabled = [ "search", "archives", "tag-cloud" ]
