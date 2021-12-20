@@ -11,7 +11,7 @@ PhotoSwipe:
       type: script
       defer: true
 
-    - src: https://viflythink.com/css/default-skin/default-skin.css
+    - src: https://viflythink.com/css/default-skin.css
       type: style
 
     - src: https://viflythink.com/css/photoswipe.css
