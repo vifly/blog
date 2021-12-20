@@ -1,0 +1,30 @@
+Vibrant:
+    - src: https://viflythink.com/js/vibrant.min.js
+      type: script
+
+PhotoSwipe:
+    - src: https://viflythink.com/js/photoswipe.min.js
+      type: script
+      defer: true
+
+    - src: https://viflythink.com/js/photoswipe-ui-default.min.js
+      type: script
+      defer: true
+
+    - src: https://viflythink.com/css/default-skin/default-skin.css
+      type: style
+
+    - src: https://viflythink.com/css/photoswipe.css
+      type: style
+
+KaTeX:
+    - src: https://viflythink.com/css/katex.min.css
+      type: style
+
+    - src: https://viflythink.com/js/katex.min.js
+      type: script
+      defer: true
+
+    - src: https://viflythink.com/js/auto-render.min.js
+      type: script
+      defer: true
