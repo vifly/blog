@@ -66,7 +66,7 @@ jobs:
 
 # 开始构造打包工作流
 
-经过上文的介绍，各位应该对 GitHub Actions 有了一定的了解，接下来就让我们开始白嫖 GitHub Actions 吧。为了白嫖，我们需要先创建一个新的 GitHub 仓库，然后有两种方法创建 GitHub Actions 配置文件，第一种方案是在这个仓库创建 .github/workflows 文件夹，在这个文件夹下新建一个 YAML 文件（完整路径示例：.github/workflows/build.yml）；第二种方案是在仓库的 Action 页面按照指引随便新建一个。完成这个步骤后就可以根据下面的指导在 YAML 文件中配置 GitHub Actions 了，不想看详细配置过程的话可以跳到下方直接抄配置。
+经过上文的介绍，各位应该对 GitHub Actions 有了一定的了解，接下来就让我们开始白嫖 GitHub Actions 吧。注意，本节中的说明均与最新版本的 [arch-build](https://github.com/vifly/arch-build) 存在差异，仅用作描述思路，想要抄作业的请直接跳到“最终成品与配置”一节。
 
 ## 自动编译 AUR 的软件包
 
@@ -129,13 +129,24 @@ jobs:
 
 与之前的 workflow 不同，我们先创建了 repos 数组，并在其中填入需要构建的软件名。如果不把 fail-fast 设置为 false，在并行 job 中出现一个运行失败的 job 时会导致其它的 job 被终止。另外，使用 build-aur-action 时我们没有直接输入 repo-name，而是以 $ 的形式输入，数组中的变量会自动应用到对应的 job 中。   
 
-# 使用自己的 PKGBUILD（可选）
+## 使用自己的 PKGBUILD（可选）
 上述版本已经很完美了，不过还存在一个问题：我需要的某个软件包虽然在 AUR 中存在，但对应的 PKGBUILD 写的太烂了/无法构建成功，此时我写了一个 PKGBUILD，希望能白嫖 GitHub Actions 进行构建，该怎么办呢。这个需求也是早有人想到了，只需使用 [pkgbuild-action](https://github.com/edlanglois/pkgbuild-action) 就可解决，它还可以解决打的包还依赖了其它的 AUR 包的问题。为此，我们需要再添加一个 job，checkout 目前仓库获取 PKGBUILD，然后使用 pkgbuild-action 进行构建，需要的 pkgdir 参数就是 PKGBUILD 所在的路径（父文件夹），最后依然是使用 release-action 根据 pkgbuild-action 返回的构建产物路径将其上传到 GitHub Releases。
 
-# 最终成品
+# 最终成品与配置
 最终版的 workflow 可以在[这](https://github.com/vifly/arch-build/blob/master/.github/workflows/build.yml)查看，只需 fork [arch-build](https://github.com/vifly/arch-build)，然后按下面的说明修改一下 workflow 文件即可食用。注意，经过一段时间的改进，最终版的配置已与上文存在一定区别，其中的 uploadToOneDrive 是[《使用 Vercel 与 OneDrive 自建软件源》](https://viflythink.com/Use_Vercel_and_OneDrive_to_setup_your_repo)中所需的 job，如果你不需要建立一个可公共访问的软件源请删掉它。
 
-如果只是需要构建上传 AUR 包，那只需修改 buildAUR 这个 job 中的内容，根据自己的需要修改其 matrix 内的软件包名，buildNonAUR 的内容则可以删掉；如果想使用自己的 PKGBUILD 进行构建，那还需要修改 buildNonAUR 这个 job，依然需要修改其 matrix 内的软件包名，另外还需要在仓库的根目录下新建以软件包名命名的文件夹，在其中存放对应的 PKGBUILD 文件和其它构建过程中所需的资源文件。
+如果只是需要构建上传 AUR 包，那只需修改 buildAUR 这个 job 中的内容，根据自己的需要修改其 matrix 内的软件包名，buildNonAUR 的内容则可以删掉。
+
+如果想使用自己的 PKGBUILD 进行构建，那还需要修改 buildNonAUR 这个 job，依然需要修改其 matrix 内的软件包名，另外还需要在仓库的根目录下新建以软件包名命名的文件夹，在其中存放对应的 PKGBUILD 文件和其它构建过程中所需的资源文件。经过我的修改后的 pkgbuild-action 还支持一个新功能：如果想构建的软件包依赖某个 AUR 软件包而你不想使用 AUR 上的 PKGBUILD，那么你可以新建一个子文件夹，在其中放入自己的 PKGBUILD。结构如下所示：
+
+```
+├── foo
+│   ├── PKGBUILD
+│   └── bar (dependences of foo)
+│       ├── PKGBUILD
+│       └── baz (dependences of bar)
+│           └── PKGBUILD
+```
 
 到此为止，借助 GitHub Actions，我们拥有了一个 24 小时可用的编译机以及公开的软件包存储库，解决了本文开始提到的第二与第三点问题。这些都是全自动且免费的，为了更好的体验，下文将介绍如何让安装软件包也实现自动化。
 
