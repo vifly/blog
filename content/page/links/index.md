@@ -1,5 +1,6 @@
 ---
 title: Links
+slug: links
 links:
   - title: 编程随想（单向友链）
     description: 翻墙之后必须要看的博客，没有之一！
