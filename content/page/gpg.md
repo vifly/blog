@@ -4,7 +4,7 @@ date: 2019-05-28
 slug: "gpg"
 menu:
     main:
-        weight: -60
+        weight: -50
         params: 
             icon: key
 ---

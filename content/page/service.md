@@ -4,7 +4,7 @@ date: 2019-05-28
 slug: "service"
 menu:
     main:
-        weight: -70
+        weight: -60
         params: 
             icon: cloud
 ---
