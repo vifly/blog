@@ -10,6 +10,7 @@ disqusShortname = ''
 hasCJKLanguage = true
 enableEmoji = true
 disablePathToLower = true
+timeZone = "Asia/Shanghai"
 
 # Set RSS path to viflythink.com/atom.xml
 [outputFormats.RSS]
@@ -174,7 +175,7 @@ toLower = false
   weight = 1
 
 [markup.goldmark.renderer]
-unsafe = false
+unsafe = true
 
 [markup.tableOfContents]
 endLevel = 4
