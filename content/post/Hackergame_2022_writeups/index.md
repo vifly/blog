@@ -28,7 +28,7 @@ image = "show.jpg"
 
 第二小题找起来有点麻烦，首先找到[ USTC LUG 的软件自由日历史记录](https://lug.ustc.edu.cn/wiki/lug/events/sfd/#2022-%E5%B9%B4-sfd)，然后打开“闪电演讲：《GNOME Wayland 使用体验：一个普通用户的视角》”对应的[ slides](https://ftp.lug.ustc.edu.cn/%E6%B4%BB%E5%8A%A8/2022.9.20_%E8%BD%AF%E4%BB%B6%E8%87%AA%E7%94%B1%E6%97%A5/slides/gnome-wayland-user-perspective.pdf)，在其中找到如下内容：
 
-![GNOME Wayland 下的 KDE 程序问题](./gnome_wayland_kdenlive.png)
+![GNOME Wayland 下的 KDE 程序问题](gnome_wayland_kdenlive.png)
 
 在看到截图中标题包含的 HD 1080p 25 fps 以及菜单内容后，我们可以合理猜测这是一个视频剪辑应用，而 KDE 家的著名视频剪辑应用当然就是 Kdenlive。
 
