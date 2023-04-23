@@ -45,7 +45,7 @@ links:
   - title: 千玄子
     description: 「纸上得来终觉浅，绝知此事要躬行」美男子（请给我打钱，谢谢）。
     website: https://zjuyk.site
-    image: https://zjuyk.gitlab.io/images/icon.png
+    image: https://zjuyk.site/img/avatar.jpg
 
   - title: 依云
     description: Arch CN 社区管理员之一，是有名的百合仙子！有许多 Linux、Vim 相关的博文。
