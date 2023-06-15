@@ -43,10 +43,10 @@ https://debianrepo.viflythink.com
 wget -qO - 'https://share.viflythink.com/debian-repo.key' | gpg --dearmor | sudo tee /usr/share/keyrings/vifly-keyring.gpg &> /dev/null
 ```
 
-接着在 sources.list.d 添加软件源，记得把 bullseye（对应 Debian 11）改为最新的稳定版系统代号（codename）。
+接着在 sources.list.d 添加软件源，记得把 bookworm（对应 Debian 12）改为最新的稳定版系统代号（codename）。
 
 ```
-echo 'deb [signed-by=/usr/share/keyrings/vifly-keyring.gpg] https://debianrepo.viflythink.com/ bullseye main' | sudo tee /etc/apt/sources.list.d/vifly.list
+echo 'deb [signed-by=/usr/share/keyrings/vifly-keyring.gpg] https://debianrepo.viflythink.com/ bookworm main' | sudo tee /etc/apt/sources.list.d/vifly.list
 ```
 
 # 文件分享
