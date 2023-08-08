@@ -1,22 +1,25 @@
 ---
 title: 从 Debian 迁移到 Arch Linux
 date: 2019-11-03 14:34:27
+lastmod: 2023-08-08
 tags: [折腾,Linux,软件安利]
 description: 我从 Debian 迁移到 Arch Linux 的过程，主要是安利软件
 image: show.jpg
 ---
 
+*2023.8.8.更新：写了一篇[新 Arch 的安装随手记](https://viflythink.com/New-Install-Arch/)，推荐与本文对比阅读。*
+
 在用了将近两年的 Debian 后，我打算尝试另一个与 Debian 存在较大差别的发行版，做了一番比较后（~~并没有~~）选择了相比 Debian 激进许多（经常需要滚包）的 Arch Linux。其实我在刚开始使用 Debian 时便听说过 Arch Linux 了，这都要归功于活跃的[ Arch Linux 中文社区](https://www.archlinuxcn.org/)，里面的人整天忙着安利 Arch Linux（~~传教~~），而且，[ Arch Linux 的 Wiki ](https://wiki.archlinux.org/index.php/Main_page_%28%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%29)也是非常优秀的文档，我在 Debian 上遇到问题时也会参考 Arch Linux 的 Wiki，久而久之，便产生了尝试 Arch Linux 的想法，此外，对于现在的我而言，[Arch Linux 的哲学](https://wiki.archlinux.org/index.php/Arch_Linux_%28%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%29#%E5%8E%9F%E5%88%99)也非常有意思，其中提到：    
 
 > Arch 适用于乐于自己动手的用户，他们愿意花时间阅读文档，解决自己的问题。
 
-这完全符合我想折腾 Linux 的想法！当然，我认为 Arch Linux 并不适合 Linux 新手，因为光是第一步的命令行安装系统（Arch Linux 官方没有提供图形化安装界面）恐怕就能劝退不少人了，不过对于接触过 Linux 的人，通过理解 Arch Linux 安装过程中所需要输入的指令的含义，能体会到一种完全掌握自己的系统的快感（~~误入邪教~~）。总而言之，对于喜欢折腾的人来说，尝试 Arch Linux 是绝对不会后悔的决定。     
+这完全符合我想折腾 Linux 的想法！当然，我认为 Arch Linux 对 Linux 新手来说并不合适，因为光是第一步的使用命令行安装系统（Arch Linux 官方没有提供图形化安装界面）恐怕就能劝退不少人了，不过对于接触过 Linux 的人，通过理解 Arch Linux 安装过程中所需要输入的指令的含义，能体会到一种完全掌握自己的系统的快感（~~误入邪教~~）。总而言之，对于喜欢折腾的人来说，尝试 Arch Linux 是绝对不会后悔的决定。
 
 由于 Arch Linux 的激进策略，安装教程很容易过时，我也不打算费力不讨好地写具体的安装步骤了，本文主要分享我在 Arch Linux 下使用的软件，希望能安利更多人使用（提到的不少软件都是跨平台的，即使不使用 Arch Linux 也可使用这些软件）。先在这里说一下我挑选软件的原则：通用性是最重要的，无论在哪个平台上使用都具有近乎一致的体验，为此没有利用单个平台的特性也是可接受的；数据可无障碍导出与导入，尊重用户的选择自由；简单易用且具备可扩展性（例如可安装扩展增强功能），但我也不排斥“一次配置，终身受用”这样需要折腾的软件；当然，开源是最好的。能达到这些要求的软件实属少数派，我在下文仅仅推荐几个，有空再补充。
 
 
 # 安装
-考虑到 Arch Linux 经常变动，所以最好的安装指南应该是官方的[ Installation Guide](https://wiki.archlinux.org/index.php/Installation_guide)，我另外也参考了两篇博文，一个是萌狼的[给 GNU/Linux 萌新的 Arch Linux 安装指南 rev.B](https://blog.yoitsu.moe/arch-linux/installing_arch_linux_for_complete_newbies.html)，~~另一个是[以官方Wiki的方式安装ArchLinux](https://www.viseator.com/2017/05/17/arch_install/)~~（由于 2019 年 10 月 Arch Linux 将 base 包组替换为同名的元包，这篇教程已过时）。对于我这样存在多系统的情况，执行了 grub-mkconfig 后最好检查一下/boot/grub/grub.cfg 是否包括了所有的系统。     
+考虑到 Arch Linux 经常变动，所以最好的安装指南应该是官方的[ Installation Guide](https://wiki.archlinux.org/index.php/Installation_guide)，我另外也参考了两篇博文，一个是萌狼的[给 GNU/Linux 萌新的 Arch Linux 安装指南 rev.B](https://blog.yoitsu.moe/arch-linux/installing_arch_linux_for_complete_newbies.html)，另一个是[以官方Wiki的方式安装ArchLinux](https://www.viseator.com/2017/05/17/arch_install/)。对于我这样存在多系统的情况，执行了 grub-mkconfig 后最好检查一下/boot/grub/grub.cfg 是否包括了所有的系统。     
 有关于桌面环境的选择，鉴于之前总是看到各位大佬吹 Arch Linux 的 KDE 桌面的美观，而我一直在 Debian 下使用 Gnome，这回便决定尝试 KDE（~~其实是为了在出问题时更容易找到大佬求救~~），在安装了 kde-applications 后，开始嫌弃如此多的用不上的应用了（说的就是教育与游戏分类下的那堆东西），所以花了点时间写了一个[简单的 Python 脚本](https://gist.github.com/vifly/33d1a4f63b0b7319c6db9af9d3bdbdb0)删除这些软件（**需要 root 权限，使用需谨慎**）。安装完成后重启进入桌面，我不得不表示默认的 KDE 桌面比 Gnome 漂亮多了，相比之下，Gnome 的塑料风格看着实在是让我难受。另外，KDE 全家桶之间的配合也令我十分满意，统一的设计风格，美观的特效，让我忍不住想吹爆 KDE 了。有一个值得一提的细节，在 KDE 下的鼠标单击等于其它桌面环境下的鼠标双击（例如在其它桌面环境下打开文件需要双击），一开始我并不习惯这种设置，觉得不便于选中单个文件，但用多了以后发现这种操作明显更轻松，因为平常使用鼠标时双击的频率比单击要高，而双击肯定比单击累，将双击替换为单击肯定可以减缓疲劳，对于需要选中单个文件的情况，右键也能满足需求，这又成了一个我喜欢 KDE 的原因。  
 除了桌面环境外，首先需要熟悉的还有 Arch Linux 的软件包管理器 Pacman，它的命令行参数与 apt 完全不一样，开始使用时经常需要查看其[ Wiki 页面](https://wiki.archlinux.org/index.php/Pacman)，值得一提的是，得益于[ AUR(Arch User Repository) ](https://wiki.archlinux.org/index.php/Arch_User_Repository)的存在以及 Arch Linux 打包的低门槛，Arch Linux 拥有数量庞大的软件包，考虑到可能会使用 AUR 里的软件包，所以我安装了[ Yay ](https://github.com/Jguer/yay)这个[ AUR 助手](https://wiki.archlinux.org/index.php/AUR_helpers)（Yay 完全兼容 Pacman 的命令行参数）帮我节省输入 makepkg 等指令的步骤，下文涉及到安装软件的指令既有可能使用 Pacman，也有可能使用 Yay。
 
@@ -53,7 +56,7 @@ image: show.jpg
     yay -S oh-my-zsh-git
     cp /usr/share/oh-my-zsh/zshrc ~/.zshrc
     
-更新：博主已经放弃启动速度慢的 oh-my-zsh，转向 Zinit 这个神器的怀抱了，另外，2021 年 11 月 Zinit 的原作者删除代码库，目前由 zdharma-continuum 组织接手进行维护，请注意 URL 的变化。Zinit 不仅轻松可以使用 oh-my-zsh 的各种插件，还拥有 Turbo mode 这个大幅减少插件加载时间的大杀器。如果你心动的话，请看[加速你的 zsh —— 最强 zsh 插件管理器 zplugin/zinit 教程](https://www.aloxaf.com/2019/11/zplugin_tutorial/)一文。仅仅是照抄文末的示例配置，我也在保留 oh-my-zsh 体验的前提下感受到了起飞的加载速度，所以请无视上面的 oh-my-zsh，使用以下指令体验顺滑如丝的 Zinit（这里用了配置难度低的 proxychains-ng 翻墙下载 GitHub 片段，也可使用其它手段）：
+*更新：博主已经放弃启动速度慢的 oh-my-zsh，转向 Zinit 这个神器的怀抱了，另外，2021 年 11 月 Zinit 的原作者删除代码库，目前由 zdharma-continuum 组织接手进行维护，请注意 URL 的变化。*Zinit 不仅轻松可以使用 oh-my-zsh 的各种插件，还拥有 Turbo mode 这个大幅减少插件加载时间的大杀器。如果你心动的话，请看[加速你的 zsh —— 最强 zsh 插件管理器 zplugin/zinit 教程](https://www.aloxaf.com/2019/11/zplugin_tutorial/)一文。仅仅是照抄文末的示例配置，我也在保留 oh-my-zsh 体验的前提下感受到了起飞的加载速度，所以请无视上面的 oh-my-zsh，使用以下指令体验顺滑如丝的 Zinit（这里用了没什么配置难度的 proxychains-ng 翻墙下载 GitHub 片段，也可使用其它手段）：
 
     yay -S zsh proxychains-ng
     git clone https://github.com/zdharma-continuum/zinit.git ~/.zinit/bin
@@ -114,7 +117,7 @@ image: show.jpg
 
 ![VS Code 图](vs_code.png)
 
-如果需要一个 IDE 的话，我推荐由 JetBrains 出品的 IDE，应该有不少人用过它家的 PyCharm 了，除此以外，Clion(C/C++)与 IntelliJ IDEA(Java)也是非常优秀的 IDE，至少在目前来说，Clion 对 Cmake 项目的支持可比 VS 好多了。另外，配合 Github 的学生认证可以白嫖 JetBrains 的产品，在此强烈推荐学生党尝试一下 Clion。
+如果需要一个 IDE 的话，我推荐由 JetBrains 出品的 IDE，应该有不少人用过它家的 PyCharm 了，除此以外，Clion (C/C++) 与 IntelliJ IDEA (Java) 也是非常优秀的 IDE，至少在目前来说，Clion 对 Cmake 项目的支持可比 VS 好多了。另外，配合 Github 的学生认证可以白嫖 JetBrains 的产品，在此强烈推荐学生党尝试一下 Clion。
 
 ## 笔记
 作为一个程序猿，总是会有记录笔记的需求，我目前有相当一部分的笔记资料储存在 EverNote 这个云笔记上，而它并没有 Linux 官方客户端，不过，得益于它的开放 API，早就有开发者做了一个在 Linux 下的客户端：NixNote（原名 Nevernote），Arch Linux 官方仓库有这个软件包：   
