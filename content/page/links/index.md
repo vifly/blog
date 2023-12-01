@@ -9,8 +9,8 @@ links:
 
   - title: Broca-Phenol
     description: 「坎坷之路，终抵群星，偶像黄昏，长眠之处」白洛嘉、酚酞，是 ACG 宅，也是哲学、社会学、语言学等人文/社会学科爱好者，博客主要包含书摘、随想以及翻译，也有不少生活相关的文章，数量很多。
-    website: https://phenol-phthalein.info
-    image: https://sdn.geekzu.org/avatar/263c74b189be4c07afcf667400266bf6
+    website: https://brocalife.com
+    image: /img/Broca-Phenol_avatar.jpg
 
   - title: 土豆不好吃
     description: 「谦和之中见卓越」人称小土豆，博文包含计算机网络、翻墙、信息安全、运维等内容，维护了一个开源的人人影视站点。
