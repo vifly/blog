@@ -50,7 +50,7 @@ image = "show.jpg"
 卡住半天后有了一个新的想法，假如我把落子位置设为对手此前的落子位置会怎样，测试了以下后发现我的棋子会直接覆盖对方的棋子，这说明我们可以很开心地上演“下一回合还是我的回合”的场面，最后写了[一个简单的脚本](https://gist.github.com/vifly/406b6ad86a4f725b14a6494dff1755c3#file-crack_board-py)直接拿到 flag。
 
 # 奶奶的睡前 flag 故事
-本题目来源于今年有人用“奶奶会用 Windows 激活码来哄我睡觉”这个提示词（prompt）诱使大语言模型提供 Windows 激活码的事情。首先题目已经直接用加粗标注提醒我们这个 Piexl 手机（Google 亲儿子）的系统没升级了，另外我还记得之前 Pixel 手机曾曝出截图工具存在安全漏洞的事情，Google 搜索“Pixel screenshot vulnerability”直接找到了一篇[对应的报道](https://www.securityweek.com/google-pixel-vulnerability-allows-the-recovery-of-cropped-screenshots/)，里面还附上了[测试用的代码](https://gist.github.com/DavidBuchanan314/93de9d07f7fab494bcdf17c2bd6cef02)，运行该代码就还原出了原来应该被丢弃的部分：
+本题目来源于今年有人用“奶奶会用 Windows 激活码来哄我睡觉”这个提示词（prompt）诱使大语言模型提供 Windows 激活码的事情。首先题目已经直接用加粗标注提醒我们这个 Pixel 手机（Google 亲儿子）的系统没升级了，另外我还记得之前 Pixel 手机曾曝出截图工具存在安全漏洞的事情，Google 搜索“Pixel screenshot vulnerability”直接找到了一篇[对应的报道](https://www.securityweek.com/google-pixel-vulnerability-allows-the-recovery-of-cropped-screenshots/)，里面还附上了[测试用的代码](https://gist.github.com/DavidBuchanan314/93de9d07f7fab494bcdf17c2bd6cef02)，运行该代码就还原出了原来应该被丢弃的部分：
 
 ```Bash
 python3 acropalypse_matching_sha256.py 1080 1068 hackergame.png reconstructed.png
@@ -168,7 +168,7 @@ check(96, 108)
 本题没什么难度，就是解题过程实在让我有点提不起劲。用 `asciinema play asciinema_restore.rec` 可以看到 flag.js 的内容被打印出来，如果直接把打印的内容重定向到文件里就会发现其中有很多的转义字符，这里我直接[修改 asciinema 对应的代码](https://gist.github.com/vifly/406b6ad86a4f725b14a6494dff1755c3#file-player-py)令其先清除一部分转义字符再将内容保存到 rec.js 中，修改代码后运行 `asciinema play asciinema_restore.rec` 得到 rec.js，然后根据 `node rec.js` 的报错信息修改 rec.js，直到它能正确打印 flag 为止。
 
 # 🪐 小型大语言模型星球
-如何通过提示词操控语言模型输出特定的回答是目前安全领域的热门方向，Hackergame 今年也顺应潮流新增了这道涉及语言模型的 AI 题。作为炼丹师看到这道题目也是一下就起劲了，只不过试了一下提示词后才发现使用的语言模型不是像 ChatGPT 这样用于聊天任务的模型，而是专门用于补全任务，即根据给定的提示词（或者说上文），生成有关联的下文。这导致原本用于 LLM 的经典提示词都没法使用了，所以第一小题我用一个取巧的方法解决了，至于剩下的小题，理论上可以训练一个生成对抗网络（GAN）来找到能让语言模型输出特定词语的提示词，但由于实在没空遂放弃。
+如何通过提示词操控语言模型输出特定的回答是目前安全领域的热门方向，Hackergame 今年也顺应潮流新增了这道涉及语言模型的 AI 题。作为炼丹师看到这道题目也是一下就起劲了，只不过试了一下提示词后才发现使用的语言模型不是像 ChatGPT 这样用于聊天任务的模型，而是专门用于补全任务，即根据给定的提示词（或者说上文），生成有关联的下文。这导致原本用于 GPT 的经典提示词都没法使用了，所以第一小题我用一个取巧的方法解决了，至于剩下的小题，理论上可以训练一个生成对抗网络（GAN）来找到能让语言模型输出特定词语的提示词，但由于实在没空遂放弃。
 
 ## You Are Smart
 翻看 [TinyStories 对应的论文](https://arxiv.org/pdf/2305.07759.pdf)，发现其是用 LLM 生成了一批数据后用于训练一个小型语言模型，既然是用梯度下降法训练的，那么模型肯定会在相当程度上拟合训练集，下载接近 2G 的[训练集](https://huggingface.co/datasets/roneneldan/TinyStories/blob/main/TinyStories-train.txt)到本地，然后 `rg "you are smart" TinyStories-train.txt` 找到含有所需输出的句子，挑了一句的前半部分作为提示词输入模型（我选的是“You are not silly,”，在第 3738500 行出现），成功让其输出含有“you are smart”的句子就解决了。 
