@@ -14,7 +14,13 @@ PhotoSwipe:
     - src: https://viflythink.com/css/default-skin.css
       type: style
 
+    - src: https://viflythink.com/css/default-skin.min.css
+      type: style
+
     - src: https://viflythink.com/css/photoswipe.css
+      type: style
+
+    - src: https://viflythink.com/css/photoswipe.min.css
       type: style
 
 KaTeX:
