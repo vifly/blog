@@ -3,7 +3,6 @@ languageCode = 'zh-cn'
 title = 'Vifly 的博客'
 theme = "hugo-theme-stack"
 summaryLength = 20
-paginate = 6
 disqusShortname = ''
 # Set hasCJKLanguage to true if DefaultContentLanguage is in [zh-cn ja ko]
 # This will make .Summary and .WordCount behave correctly for CJK languages.
@@ -11,6 +10,10 @@ hasCJKLanguage = true
 enableEmoji = true
 disablePathToLower = true
 timeZone = "Asia/Shanghai"
+
+[pagination]
+pagerSize = 6
+
 
 # Set RSS path to viflythink.com/atom.xml
 [outputFormats.RSS]
