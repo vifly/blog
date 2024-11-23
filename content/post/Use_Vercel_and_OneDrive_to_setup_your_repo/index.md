@@ -12,6 +12,7 @@ image = "show.jpg"
 +++
 
 *2021.11.12.更新：增加了关于 GPG 签名的说明。*
+*2024.11.23.更新：现在支持上传软件包到其它 Rclone 支持的云存储了，所以更新了对 uploadToOneDrive job 的说明。*
 
 
 大家好，又是本鸽子久违的博客更新。之前的[《GitHub Actions 打造 AUR 打包下载一条龙服务》](https://viflythink.com/Use_GitHubActions_to_build_AUR)已经折腾出了完全白嫖的编译机，可好景不长，当我的机器数量变多后，我发现在每台机器上运行脚本下载软件包的确有点麻烦，与其自己写一个脚本下载软件包，还不如直接自建一个软件源呢。经过一番研究后，我盯上了 OneDrive 与 Vercel 这两个可以免费使用的服务，通过它们实现了自建一个完全免费而且在国内外都可高速访问的软件源。
@@ -46,7 +47,7 @@ Server = https://archrepo.viflythink.com
 
 ![Azure 应用列表](azure_applist.png)
 
-在打开的界面中输入应用的名字（这里我用了 rclone 这个名字），Supported account types 这一项选择 Accounts in any orGitHub Actionsnizational directory，在 Redirect URI (optional) 这一项选择 Web 并在右边的输入框里输入 http://localhost:53682/ 这一网址。完成后点击 Register。
+在打开的界面中输入应用的名字（这里我用了 rclone 这个名字），Supported account types 这一项选择图中的第二项（也是包含范围最广泛的那项），在 Redirect URI (optional) 这一项选择 Web 并在右边的输入框里输入 http://localhost:53682/ 这一网址。完成后点击 Register。
 
 ![Azure 注册应用](azure_app_register.png)
 
@@ -63,7 +64,7 @@ Server = https://archrepo.viflythink.com
 ## 获取 Token
 在本地安装 Rclone（`pacman -S rclone`），运行 rclone config 进入交互式配置流程，接着[一步步地按照提示操作](https://rclone.org/onedrive)，当程序询问 Microsoft App Client Id 和 Microsoft App Client Secret 时，填入上一小节中记录的对应值。
 
-完成配置后 Rclone 会把配置数据存放在 ~/.config/rclone/rclone.conf，使用 `cat ~/.config/rclone/rclone.conf` 查看。如下所示，下文需要复制对应的值时只需要把等号右边的东西按原样复制粘贴就行了。
+完成配置后 Rclone 会把配置数据存放在 ~/.config/rclone/rclone.conf，使用 `cat ~/.config/rclone/rclone.conf` 查看。如下所示，下文的 RCLONE_CONFIG 就需要把这些东西复制粘贴进去。
 
 ```INI
 [xxx]
@@ -76,16 +77,14 @@ token = {"access_token":"xxx","token_type":"Bearer","refresh_token":"xxx","expir
 drive_id = xxx
 ```
 
-*PS：一点安全提醒，在我们的用例中，client id 与 client secret 都可以公开，但 token 是绝对不能公开的。*
-
 ## 配置 GitHub Actions
-首先 fork [arch-build 仓库](https://github.com/vifly/arch-build)，如果你在之前已经使用了它，记得同步到最新版本。与前文所给的例子相比，现在的 workflow 文件（.github/workflows/build.yml）多了 uploadToOneDrive 这一个 job，而用到的 action 需要填入近十个参数，参数量的确很多，接下来让我介绍一下该如何填写这些参数。
+首先 fork [arch-build 仓库](https://github.com/vifly/arch-build)，如果你在之前已经使用了它，记得同步到最新版本。与前文所给的例子相比，现在的 workflow 文件（.github/workflows/build.yml）多了 uploadToOneDrive 这一个 job，虽然我这里用的是 OneDrive，但其实你也可以用它把软件包上传到其它 Rclone 支持的云存储上。
 
-${{ secrets.xxx }} 这样的变量都是需要在 GitHub 的项目配置中的 Secrets 一栏设置的私密变量，打开项目的 Settings，找到下图所示的界面，然后点击 New repository secret，并填入 RCLONE_ONEDRIVE_CLIENT_ID、RCLONE_ONEDRIVE_CLIENT_SECRET、RCLONE_ONEDRIVE_TOKEN、RCLONE_ONEDRIVE_DRIVE_ID 这四个变量的值（从上一小节的 rclone.conf 中获得）。具体的操作也可参考 [GitHub 官方文档](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository)。
+${{ secrets.xxx }} 这样的变量都是需要在 GitHub 的项目配置中的 Secrets 一栏设置的私密变量，打开项目的 Settings，找到下图所示的界面，然后点击 New repository secret，并填入 RCLONE_CONFIG 这个变量的值（把上一小节的 rclone.conf 内容复制粘贴进去即可）。具体的操作也可参考 [GitHub 官方文档](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository)。
 
 ![GitHub Actions 添加私密变量](github_actions_add_secret.png)
 
-接着回来修改 workflow 文件，RCLONE_ONEDRIVE_REGION 与 RCLONE_ONEDRIVE_DRIVE_TYPE 也是按 rclone.conf 的值填写；而 dest_path 是 OneDrive 上传的目的地路径（如果该路径不存在，Rclone 会自动创建），以 Linux 文件路径的形式填写即可，不建议使用根路径，因为接下来将会把这个路径下的所有东西公开，各位肯定不希望别人打开你的软件仓库页面时还看到其它乱七八糟的文件；repo_name 是你的自建软件仓库的名字，[它用于 repo-add 的参数](https://wiki.archlinux.org/title/Pacman/Tips_and_tricks#Custom_local_repository)。
+接着回来修改 workflow 文件，dest_path 是 OneDrive 上传的目的地路径（如果该路径不存在，Rclone 会自动创建），以 Linux 文件路径的形式填写即可，不建议使用根路径，因为接下来将会把这个路径下的所有东西公开，各位肯定不希望别人打开你的软件仓库页面时还看到其它乱七八糟的文件；repo_name 是你的自建软件仓库的名字，[它用于 repo-add 的参数](https://wiki.archlinux.org/title/Pacman/Tips_and_tricks#Custom_local_repository)。
 
 为了安全，建议为自己的软件源添加 GPG 签名，不签名的话，pacman.conf 中的仓库配置需要加上 `SigLevel = Never` 禁用签名校验才能使用。如果你想为自己的软件源添加 GPG 签名的话，建议先生成一个单独的 GPG 密钥对（不要设置密码），而不是使用原有的密钥对，并导出私钥：
 
