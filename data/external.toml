@@ -1,0 +1,19 @@
+KaTeX = [
+    { src = "https://viflythink.com/css/katex.min.css", type = "style" },
+    { src = "https://viflythink.com/js/katex.min.js", type = "script", defer = true },
+    { src = "https://viflythink.com/js/auto-render.min.js", type = "script", defer = true },
+]
+
+Cactus = [
+    { src = "https://latest.cactus.chat/cactus.js", type = "script" },
+    { src = "https://latest.cactus.chat/style.css", type = "style" },
+]
+
+[PhotoSwipe]
+    Style    = "https://viflythink.com/css/photoswipe.css"
+    Core     = "https://viflythink.com/js/photoswipe.esm.min.js"
+    Lightbox = "https://viflythink.com/js/photoswipe-lightbox.esm.min.js"
+
+[Artalk]
+    Style  = "https://viflythink.com/css/Artalk.css"
+    Script = "https://viflythink.com/js/Artalk.mjs"

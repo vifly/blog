@@ -1,5 +1,6 @@
 baseURL = 'https://viflythink.com/'
-languageCode = 'zh-cn'
+locale = "zh"
+defaultContentLanguage = 'zh'
 title = 'Vifly 的博客'
 theme = "hugo-theme-stack"
 summaryLength = 20
@@ -11,6 +12,7 @@ enableEmoji = true
 disablePathToLower = true
 timeZone = "Asia/Shanghai"
 
+
 [pagination]
 pagerSize = 6
 
@@ -21,7 +23,7 @@ mediatype = "application/rss"
 baseName = "atom"
 
 [permalinks]
-post = "/:filename/"
+post = "/:contentbasename/"
 page = "/:slug/"
 
 [params]
@@ -44,12 +46,8 @@ favicon = "img/favicon.png"
   subtitle = "千里之行，始于足下"
   randomSlogan = true
   sloganURL = "https://api.github.com/gists/7a04e2188185ddb19cbd19d8217b9400"
+  avatar = "img/avatar.png"
 
-    [params.sidebar.avatar]
-    enabled = true
-    local = true
-    src = "img/avatar.png"
-    
   [params.article]
   math = false
   toc = true
@@ -79,16 +77,16 @@ favicon = "img/favicon.png"
   
   [[params.widgets.homepage]]
   type = "search"
-  
+
   [[params.widgets.homepage]]
   type = "archives"
-  
+
     [params.widgets.homepage.params]
     limit = 5
-  
+
   [[params.widgets.homepage]]
   type = "tag-cloud"
-  
+
     [params.widgets.homepage.params]
     limit = 12
   
