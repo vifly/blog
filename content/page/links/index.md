@@ -51,6 +51,11 @@ links:
     description: Arch CN 社区管理员之一，是有名的百合仙子！有许多 Linux、Vim 相关的博文。
     website: https://blog.lilydjwg.me/
     image: https://avatars.githubusercontent.com/u/440661
+
+  - title: rikkaneko
+    description: 「哈囉，我是來自香港的空指計~」
+    website: https://blog.nekoid.cc/
+    image: https://avatars.githubusercontent.com/u/55078931
 menu:
     main:
         weight: -70
